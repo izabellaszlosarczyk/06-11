@@ -3,18 +3,7 @@
     <nav class="navbar navbar-dark bg-dark">
       <span class="navbar-brand mb-0 h1">Participants list</span>
     </nav>
-    <div class="participants-list">
-      <h1>Participants</h1>
-      <div v-if="participants.length > 0">
-        <div v-for="participant in participants" v-bind:key="participant.id">
-          {{participant.name}} {{participant.surname}}
-          <button v-on:click="onRemove(participant)" type="button" class="btn btn-danger">Remove</button>
-        </div>
-      </div>
-      <div v-else class="alert alert-info" role="alert">
-        Oopsss. Nothing here ;c 
-      </div>
-    </div>
+    <participants-list v-bind:participants="participants" v-on:participant-remove="onRemove($event)"></participants-list>
     <div class="participant-add-form">
       <h1>Add participant</h1>
       <form v-on:submit.prevent="onSubmit()">
@@ -33,7 +22,10 @@
 </template>
 
 <script>
+  import ParticipantsList from "./components/ParticipantsList.vue";
+
   export default {
+    components: {ParticipantsList},
     data: function () {
       return {
         participants: [],
